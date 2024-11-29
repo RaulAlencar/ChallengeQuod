@@ -1,5 +1,13 @@
 package br.com.fiap.challengequod.screens
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.util.Log
+import android.widget.Toast
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,9 +22,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import br.com.fiap.challengequod.R
 import kotlinx.coroutines.delay
@@ -28,6 +41,8 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
     var showScanner by remember { mutableStateOf(false) }
     var showResult by remember { mutableStateOf(false) }
     val fadeInAlpha = remember { Animatable(0f) }
+
+
 
     // Animação do scanner
     val scannerOffset by rememberInfiniteTransition().animateFloat(

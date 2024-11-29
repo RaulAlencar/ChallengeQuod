@@ -58,6 +58,7 @@ fun FacialBiometricScreen(navController: NavController) {
             //simular sucesso
             Button(
                 onClick = {navController.navigate("biometriaFacialValidacao/true")
+
                 }
             ) {
                 Text("Simular Rosto Válido")
