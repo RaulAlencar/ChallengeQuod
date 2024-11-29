@@ -198,14 +198,14 @@ fun HomeScreen(navController: NavController) {
             ){
                 CardItem(
                     title = "Biometria Facial",
-                    color = BlueQuod
+                    imageResId = R.drawable.biometria_facial
                 ){
                     // Ação para Biometria Facial
                     navController.navigate("biometriaFacial")
                 }
                 CardItem(
                     title = "Biometria Digital",
-                    color = BlueQuod
+                    imageResId = R.drawable.biometria_digital
                 ){
                     // Ação para Biometria Facial
                     navController.navigate("camera")
@@ -220,7 +220,7 @@ fun HomeScreen(navController: NavController) {
             ) {
                 CardItem(
                     title = "Análise de Documento",
-                    color = BlueQuod
+                    imageResId = R.drawable.pesquisa_documento
                 ){
                     // Ação para Biometria Facial
                     navController.navigate("biometria_facial")
@@ -228,7 +228,7 @@ fun HomeScreen(navController: NavController) {
 
                 CardItem(
                     title = "SIM SWAP",
-                    color = BlueQuod
+                    imageResId = R.drawable.chip_sim_swap
                 ){
                     // Ação para Biometria Facial
                     navController.navigate("SIMSwap")
@@ -241,7 +241,7 @@ fun HomeScreen(navController: NavController) {
             ){
                 CardItem(
                     title = "Autenticação Cadastral",
-                    color = BlueQuod
+                    imageResId = R.drawable.cadastro
                 ){
                     // Ação para Biometria Facial
                     navController.navigate("autenticacaoCadastral")
@@ -249,7 +249,7 @@ fun HomeScreen(navController: NavController) {
 
                 CardItem(
                     title = "Score Antifraude",
-                    color = BlueQuod
+                    imageResId = R.drawable.score
                 ){
                     // Ação para Biometria Facial
                     navController.navigate("score")
@@ -264,34 +264,34 @@ fun HomeScreen(navController: NavController) {
 }
 
 @Composable
-fun CardItem(title: String, color: Color, onClick: () -> Unit) {
+fun CardItem(title: String, imageResId: Int, onClick: () -> Unit) {
     Card(
         modifier = Modifier
-            .width(160.dp)
-            .height(120.dp)
+            .width(170.dp)
+            .height(140.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = color),
+        colors = CardDefaults.cardColors(containerColor = BlueQuod),
         elevation = CardDefaults.cardElevation(6.dp)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
+                .fillMaxSize(),
+                //.padding(1.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
 
             Box(
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(70.dp)
                     .background(WhiteQuod, shape = CircleShape),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = title.first().toString(),
-                    style = MaterialTheme.typography.titleLarge,
-                    color = color
+                Image(
+                    painter = painterResource(imageResId), // Passa a imagem ou ícone
+                    contentDescription = "Ícone de $title", // Descrição do ícone
+                    modifier = Modifier.size(50.dp) // Tamanho do ícone ou imagem
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))

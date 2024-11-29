@@ -41,6 +41,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -123,7 +124,7 @@ fun CheckScoreScreen(navController: NavController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(26.dp))
 
             // Botão de Verificação
             OutlinedButton(
@@ -147,17 +148,22 @@ fun CheckScoreScreen(navController: NavController) {
                 Text(text = "Consultar Score", fontSize = 14.sp)
             }
 
+            Spacer(modifier = Modifier.height(24.dp))
             // Exibe o score calculado
             if (score > 0) {
                 Text(
                     text = "Seu Score é: $score",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = BlackQuod
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        textDecoration = TextDecoration.Underline
+                    ),
+                    color = PurpleQuod,
+                    fontSize = 22.sp
                 )
+
             }
 
             // Card com título e instruções
-            Spacer(modifier = Modifier.height(32.dp)) // Espaço antes do Card
+            Spacer(modifier = Modifier.height(20.dp)) // Espaço antes do Card
 
             Card(
                 modifier = Modifier
@@ -200,16 +206,23 @@ fun CheckScoreScreen(navController: NavController) {
                             2. Aguarde a validação dos dados.
                             3. O seu score será exibido após a análise.
             
-                            Exemplos de CPFs e seus scores:
-                            
-                            - CPF: 123.456.789-00 → Score: 1
-                            - CPF: 234.567.890-12 → Score: 270
-                            - CPF: 345.678.901-23 → Score: 780
-                            - CPF: 987.654.321-00 → Score: 1000
+                            Exemplos de CPFs e seus scores:                            
+                              - CPF: 172.938.475-62 → Score: 127
+                              - CPF: 678.345.123-45 → Score: 336
+                              - CPF: 412.303.185-00 → Score: 765
+                              - CPF: 342.158.296-40 → Score: 958                            
                              """.trimIndent(),
                         style = MaterialTheme.typography.bodyMedium,
                         color = BlackQuod
-            )
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Atenção! para efeitos de simulação do score foi aplicado" +
+                                " uma equação sobre os digitos do CPF!",
+                        textAlign = TextAlign.Justify,
+                        color = Color(0xFFEC1A0A)
+                    )
+
                 }
             }
         }

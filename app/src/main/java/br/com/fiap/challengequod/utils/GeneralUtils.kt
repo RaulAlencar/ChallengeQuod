@@ -49,25 +49,34 @@ fun getResetData(): UserInfo {
 }
 
 fun calcularScore(cpf: String): Int {
-    // Remover qualquer caractere não numérico (como ponto ou hífen)
+    // Remover qualquer caractere não numérico
     val cpfNumerico = cpf.replace(Regex("[^0-9]"), "")
 
-    // Verificar se o CPF tem 11 dígitos
-    if (cpfNumerico.length != 11) {
-        return -1 // Retorna -1 caso o CPF não tenha o formato correto
+    // Verificar se o CPF tem pelo menos 9 dígitos
+    if (cpfNumerico.length < 9) {
+        return -1 // Retorna -1 caso o CPF não tenha formato suficiente
     }
 
-    // Calcular a soma dos dígitos
-    val somaDosDigitos = cpfNumerico.sumOf { it.toString().toInt() }
+    // Pegar os blocos de 3 dígitos e calcular a soma reduzida para um dígito
+    val soma1 = reduzirParaUmDigito(cpfNumerico.substring(0, 3).sumOf { it.toString().toInt() })
+    val soma2 = reduzirParaUmDigito(cpfNumerico.substring(3, 6).sumOf { it.toString().toInt() })
+    val soma3 = reduzirParaUmDigito(cpfNumerico.substring(6, 9).sumOf { it.toString().toInt() })
 
-    // Aplicar uma fórmula simples para gerar o score (isso é apenas uma simulação simples)
-    var score = somaDosDigitos * 17 % 1001 // Multiplia por 17 e usa o módulo 1001 para garantir o intervalo
-
-    // Garantir que o score final fique entre 1 e 1000
-    if (score == 0) score = 1 // Se o score for 0, retorna 1 (para evitar zero como score)
+    // Combinar as três somas em um número de 3 dígitos
+    val score = "$soma1$soma2$soma3".toInt()
 
     return score
 }
+
+// Função auxiliar para somar os dígitos até restar apenas 1 dígito
+fun reduzirParaUmDigito(soma: Int): Int {
+    var resultado = soma
+    while (resultado >= 10) {
+        resultado = resultado.toString().sumOf { it.toString().toInt() }
+    }
+    return resultado
+}
+
 
 // Função de validação do CPF
 fun isValidCPF(cpf: String): Boolean {
