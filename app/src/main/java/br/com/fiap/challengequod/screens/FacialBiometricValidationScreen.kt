@@ -1,39 +1,50 @@
 package br.com.fiap.challengequod.screens
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.util.Log
-import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import br.com.fiap.challengequod.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 
 @Composable
 fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boolean){
@@ -45,13 +56,13 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
 
 
     // Animação do scanner
-    val scannerOffset by rememberInfiniteTransition().animateFloat(
+    val scannerOffset by rememberInfiniteTransition(label = "").animateFloat(
         initialValue = 0f,
-        targetValue = 500f,
+        targetValue = 600f,
         animationSpec = infiniteRepeatable(
             animation = tween(1000, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
-        )
+        ), label = ""
     )
 
     LaunchedEffect(Unit) {
@@ -65,70 +76,84 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
 
         delay(2000) // Aguarda o término do fade-in
         showScanner = true
-        delay(3000) // Scanner ocorre por 2 segundos
+        delay(3000) // Scanner ocorre por 3 segundos
         showScanner = false
         showResult = true
         currentStep = if (isSuccess) "Autenticação Bem-Sucedida" else "Autenticação Falhou"
-        delay(1500) // Mostra o resultado por 2 segundos
+        delay(2000) // Mostra o resultado por 2 segundos
         //voltar para a tela anterior
         navController.popBackStack() // Retorna para a tela anterior
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = currentStep,
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(32.dp))
-
-        if (!showResult) {
-            // Exibição da imagem e scanner
-            Box(
+    Dialog(onDismissRequest = {}) {
+        // Container do Dialog
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            // O Card que forma o conteúdo do AlertDialog com bordas coloridas
+            Column(
                 modifier = Modifier
-                    .size(200.dp)
-                    .clip(CircleShape)
-                    .background(Color.Black), // Fundo preto inicial
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.foto_homem), // Substitua pela imagem real
-                    contentDescription = "Foto Capturada",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .graphicsLayer { alpha = fadeInAlpha.value } // Aplicando o fade-in
-                        .then(
-                            if (showScanner) Modifier.drawWithContent {
-                                drawContent()
-                                drawRect(
-                                    color = Color.Cyan.copy(alpha = 0.5f),
-                                    topLeft = androidx.compose.ui.geometry.Offset(0f, scannerOffset),
-                                    size = androidx.compose.ui.geometry.Size(size.width, 10f)
-                                )
-                            } else Modifier
-                        )
-                )
-            }
-        } else {
-            // Exibição do resultado
-            Box(
-                modifier = Modifier
-                    .size(200.dp)
-                    .clip(CircleShape)
-                    .background(if (isSuccess) Color.Green else Color.Red),
-                contentAlignment = Alignment.Center
+                    .background(Color(0xFFE0E0E0), shape = RoundedCornerShape(16.dp))
+                    //.padding(10.dp)
+                    .alpha(1f)
+                    .fillMaxWidth()
+                    .height(400.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = if (isSuccess) "✔" else "✖",
-                    style = MaterialTheme.typography.displayMedium,
-                    color = Color.White
+                    text = currentStep,
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Center
                 )
+                Spacer(modifier = Modifier.height(32.dp))
+
+                if (!showResult) {
+                    // Exibição da imagem e scanner
+                    Box(
+                        modifier = Modifier
+                            .size(200.dp, 240.dp)
+                            .clip(RoundedCornerShape(90.dp))
+                            .background(Color.Black),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(if (isSuccess) R.drawable.mulher else R.drawable.homem),
+                            contentDescription = "Foto Capturada",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .graphicsLayer { alpha = fadeInAlpha.value } // Aplicando o fade-in
+                                .then(
+                                    if (showScanner) Modifier.drawWithContent {
+                                        drawContent()
+                                        drawRect(
+                                            color = Color.Cyan.copy(alpha = 0.5f),
+                                            topLeft = Offset(0f, scannerOffset),
+                                            size = Size(size.width, 10f)
+                                        )
+                                    } else Modifier
+                                )
+                        )
+                    }
+                } else {
+                    // Exibição do resultado
+                    Box(
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape)
+                            .background(if (isSuccess) Color.Green else Color.Red),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = if (isSuccess) "✔" else "✖",
+                            style = MaterialTheme.typography.displayMedium,
+                            color = Color.White
+                        )
+                    }
+                }
             }
         }
     }

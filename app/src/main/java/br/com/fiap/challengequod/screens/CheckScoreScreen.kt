@@ -82,8 +82,8 @@ fun CheckScoreScreen(navController: NavController) {
 
             // Imagem e cabeçalho
             Image(
-                painter = painterResource(id = R.drawable.score), // Referência para a sua imagem
-                contentDescription = "Imagem de um homem",
+                painter = painterResource(id = R.drawable.score),
+                contentDescription = "imagem de nivel de pontuação",
                 modifier = Modifier
                     .size(150.dp)
                     .padding(top = 20.dp)

@@ -88,7 +88,7 @@ fun SimSwapScreen(navController: NavController) {
             // Imagem e cabeçalho
             Image(
                 painter = painterResource(id = R.drawable.chip_sim_swap), // Referência para a sua imagem
-                contentDescription = "Imagem de um homem",
+                contentDescription = "Chip de celuar alterado",
                 modifier = Modifier
                     .size(150.dp)
                     .padding(top = 20.dp)
