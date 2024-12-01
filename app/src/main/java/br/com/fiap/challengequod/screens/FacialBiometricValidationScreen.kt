@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -20,6 +21,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
@@ -45,6 +51,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 
 @Composable
 fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boolean){
@@ -79,7 +86,7 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
         delay(3000) // Scanner ocorre por 3 segundos
         showScanner = false
         showResult = true
-        currentStep = if (isSuccess) "Autenticação Bem-Sucedida" else "Autenticação Falhou"
+        currentStep = if (isSuccess) "Autenticação Bem-Sucedida!" else "Autenticação Falhou!\nTente Novamente"
         delay(2000) // Mostra o resultado por 2 segundos
         //voltar para a tela anterior
         navController.popBackStack() // Retorna para a tela anterior
@@ -140,19 +147,31 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
                     }
                 } else {
                     // Exibição do resultado
-                    Box(
+                    Column(
                         modifier = Modifier
-                            .size(200.dp)
-                            .clip(CircleShape)
-                            .background(if (isSuccess) Color.Green else Color.Red),
-                        contentAlignment = Alignment.Center
+                            .size(220.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(if (isSuccess) Color(0xFFDFF7DF) else Color(0xFFFEEDEE))
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Top
                     ) {
+                        // Ícone de sucesso ou erro
+                        Image(
+                            painter = painterResource(if (isSuccess) R.drawable.sucesso else R.drawable.falha),
+                            contentDescription = if (isSuccess) "Sucesso" else "Erro",
+                            modifier = Modifier.size(150.dp)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        // Mensagem descritiva
                         Text(
-                            text = if (isSuccess) "✔" else "✖",
-                            style = MaterialTheme.typography.displayMedium,
-                            color = Color.White
+                            text = if (isSuccess) "Validação concluída com sucesso" else "Erro na validação biométrica",
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center,
+                            color = if (isSuccess) Color(0xFF388E3C) else Color(0xFFD32F2F)
                         )
                     }
+
                 }
             }
         }
