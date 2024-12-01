@@ -208,7 +208,7 @@ fun HomeScreen(navController: NavController) {
                     imageResId = R.drawable.biometria_digital
                 ){
                     // Ação para Biometria Facial
-                    navController.navigate("camera")
+                    navController.navigate("biometriaDigital")
                 }
             }
 

@@ -46,8 +46,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boolean){
-    var currentStep by remember { mutableStateOf("Capturando...") }
+fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Boolean){
+    var currentStep by remember { mutableStateOf("Capturando Digital...") }
     var showScanner by remember { mutableStateOf(false) }
     var showResult by remember { mutableStateOf(false) }
     val fadeInAlpha = remember { Animatable(0f) }
@@ -120,8 +120,8 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(if (isSuccess) R.drawable.mulher else R.drawable.homem),
-                            contentDescription = "Foto Capturada",
+                            painter = painterResource(R.drawable.digital_preta),
+                            contentDescription = "Digital Capturada",
                             modifier = Modifier
                                 .fillMaxSize()
                                 .graphicsLayer { alpha = fadeInAlpha.value } // Aplicando o fade-in

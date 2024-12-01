@@ -12,8 +12,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import br.com.fiap.challengequod.screens.CameraScreen
 import br.com.fiap.challengequod.screens.CheckScoreScreen
+import br.com.fiap.challengequod.screens.DigitalBiometricScreen
+import br.com.fiap.challengequod.screens.DigitalBiometricValidationScreen
 import br.com.fiap.challengequod.screens.FacialBiometricScreen
 import br.com.fiap.challengequod.screens.HomeScreen
 import br.com.fiap.challengequod.screens.IdentityVerificationScreen
@@ -43,16 +44,28 @@ class MainActivity : ComponentActivity() {
                             route = "biometriaFacialValidacao/{isSuccess}",
                             arguments = listOf(navArgument("isSuccess"){type = NavType.BoolType})
                         ){ backStackEntry ->
-                            val isSuccess = backStackEntry.arguments?.getBoolean("isSuccess") ?: false
+                            val isSuccessFacial = backStackEntry.arguments?.getBoolean("isSuccess") ?: false
 
                             FacialBiometricValidationScreen(
                                 navController = navController,
-                                isSuccess = isSuccess
+                                isSuccess = isSuccessFacial
                             )
                         }
 
-                        //biometria digital
-                        composable(route = "camera"){ CameraScreen(navController) }
+                        // Biometria Digital
+                        composable(route = "biometriaDigital"){ DigitalBiometricScreen(navController) }
+                        composable(
+                            route = "biometriaDigitalValidacao/{isSuccess}",
+                            arguments = listOf(navArgument("isSuccess"){type = NavType.BoolType})
+                        ){ backStackEntry ->
+                            val isSuccessDigital = backStackEntry.arguments?.getBoolean("isSuccess") ?: false
+
+                            DigitalBiometricValidationScreen(
+                                navController = navController,
+                                isSuccess = isSuccessDigital
+                            )
+                        }
+
                         //documentoscopia
                         composable(route = "SIMSwap"){ SimSwapScreen(navController)}
                         composable(route = "autenticacaoCadastral"){ IdentityVerificationScreen(navController) }

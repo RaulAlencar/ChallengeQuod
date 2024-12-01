@@ -37,10 +37,11 @@ import br.com.fiap.challengequod.ui.theme.BlueQuod
 import br.com.fiap.challengequod.ui.theme.PurpleQuod
 import br.com.fiap.challengequod.ui.theme.WhiteQuod
 
-//import androidx.navigation.NavController
 
 @Composable
-fun FacialBiometricScreen(navController: NavController) {
+fun DigitalBiometricScreen(navController: NavController) {
+
+
 
     Box(
         modifier = Modifier
@@ -58,15 +59,15 @@ fun FacialBiometricScreen(navController: NavController) {
 
             // Imagem e cabeçalho
             Image(
-                painter = painterResource(id = R.drawable.bio_facial),
-                contentDescription = "Imagem de biometria facial",
+                painter = painterResource(id = R.drawable.bio_digital),
+                contentDescription = "Imagem de biometria Digital",
                 modifier = Modifier
                     .size(180.dp)
                     .padding(top = 20.dp)
             )
             Spacer(modifier = Modifier.height(22.dp))
             Text(
-                text = "Biometria Facial",
+                text = "Biometria Digital",
                 style = MaterialTheme.typography.displaySmall,
                 color = BlackQuod
             )
@@ -79,7 +80,7 @@ fun FacialBiometricScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
 
             OutlinedButton(
-                onClick = {navController.navigate("biometriaFacialValidacao/true") },
+                onClick = {navController.navigate("biometriaDigitalValidacao/true") },
                 modifier = Modifier
                     .padding(8.dp)
                     .width(300.dp)
@@ -99,7 +100,7 @@ fun FacialBiometricScreen(navController: NavController) {
             }
 
             OutlinedButton(
-                onClick = {navController.navigate("biometriaFacialValidacao/false")},
+                onClick = {navController.navigate("biometriaDigitalValidacao/false")},
                 modifier = Modifier
                     .padding(8.dp)
                     .width(300.dp)
@@ -140,8 +141,9 @@ fun FacialBiometricScreen(navController: NavController) {
     }
 }
 
+
 @Composable
 @Preview(showBackground = true)
-fun PreviewFacialBiometricScreen() {
-    FacialBiometricScreen(navController = NavController(LocalContext.current))
+fun PreviewDigitalBiometricScreen() {
+    DigitalBiometricScreen(navController = NavController(LocalContext.current))
 }
