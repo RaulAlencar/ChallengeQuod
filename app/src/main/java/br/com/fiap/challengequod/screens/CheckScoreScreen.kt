@@ -15,9 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -112,10 +109,10 @@ fun CheckScoreScreen(navController: NavController) {
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodyMedium,
                 colors = textFieldColors,
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number) // Apenas números no teclado
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
             )
 
-            // Exibe a mensagem de erro, se necessário
+
             if (errorMessage.isNotEmpty()) {
                 Text(
                     text = errorMessage,
@@ -141,8 +138,8 @@ fun CheckScoreScreen(navController: NavController) {
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(90.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = Color.White, // Cor do texto
-                    containerColor = BlackQuod // Cor de fundo para o botão de validar
+                    contentColor = Color.White,
+                    containerColor = BlackQuod
                 )
             ) {
                 Text(text = "Consultar Score", fontSize = 14.sp)
@@ -163,7 +160,7 @@ fun CheckScoreScreen(navController: NavController) {
             }
 
             // Card com título e instruções
-            Spacer(modifier = Modifier.height(20.dp)) // Espaço antes do Card
+            Spacer(modifier = Modifier.height(20.dp))
 
             Card(
                 modifier = Modifier
@@ -198,8 +195,6 @@ fun CheckScoreScreen(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Pode adicionar as instruções específicas aqui
-                    // Instruções detalhadas com exemplos de CPFs
                     Text(
                         text = """
                             1. Informe o seu CPF corretamente.

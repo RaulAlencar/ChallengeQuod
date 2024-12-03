@@ -5,13 +5,35 @@ package br.com.fiap.challengequod.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +47,6 @@ import androidx.navigation.compose.rememberNavController
 import br.com.fiap.challengequod.R
 import br.com.fiap.challengequod.ui.theme.BlackQuod
 import br.com.fiap.challengequod.ui.theme.BlueQuod
-import br.com.fiap.challengequod.ui.theme.GreenQuod
 import br.com.fiap.challengequod.ui.theme.PurpleQuod
 import br.com.fiap.challengequod.ui.theme.WhiteQuod
 import br.com.fiap.challengequod.utils.getFailureData
@@ -306,8 +327,8 @@ fun IdentityVerificationScreen(navController: NavController) {
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(90.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = Color.White, // Cor do texto
-                    containerColor = BlackQuod // Cor de fundo para o botão de validar
+                    contentColor = Color.White,
+                    containerColor = BlackQuod
                 )
             ) {
                 Text(text = "Validar", fontSize = 14.sp)

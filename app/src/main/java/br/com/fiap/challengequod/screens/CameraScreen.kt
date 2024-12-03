@@ -28,63 +28,71 @@ import androidx.navigation.NavController
 
 @Composable
 fun CameraScreen(navController: NavController) {
-    val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
 
-    // Verificar permissão de câmera
-    LaunchedEffect(Unit) {
-        if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Solicitar permissão
-            ActivityCompat.requestPermissions(
-                context as android.app.Activity,
-                arrayOf(Manifest.permission.CAMERA),
-                1001
-            )
-        }
-    }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        AndroidView(
-            factory = { ctx ->
-                PreviewView(ctx).apply {
-                    // Configurar o Preview quando a permissão é concedida
-                    cameraProviderFuture.addListener({
-                        try {
-                            val cameraProvider = cameraProviderFuture.get()
+    // PARA PROXIMA ETAPA-------------------------
 
-                            // Configurar o Preview
-                            val preview = Preview.Builder().build()
-                            preview.setSurfaceProvider(surfaceProvider)
 
-                            // Selecionar a câmera traseira
-                            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
-                            // Vincular o ciclo de vida do Preview ao lifecycleOwner
-                            cameraProvider.unbindAll()
-                            cameraProvider.bindToLifecycle(
-                                lifecycleOwner,
-                                cameraSelector,
-                                preview
-                            )
 
-                        } catch (e: Exception) {
-                            Log.e("CameraPreview", "Erro ao iniciar a câmera: ${e.message}")
-                            Toast.makeText(ctx, "Erro ao iniciar a câmera", Toast.LENGTH_SHORT).show()
-                        }
-                    }, ContextCompat.getMainExecutor(ctx))
-                }
-            },
-            modifier = Modifier
-                .size(200.dp) // Define o tamanho do círculo
-                .clip(CircleShape) // Aplica o recorte em forma de círculo
-        )
-    }
+
+//    val context = LocalContext.current
+//    val lifecycleOwner = LocalLifecycleOwner.current
+//    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
+//
+//    // Verificar permissão de câmera
+//    LaunchedEffect(Unit) {
+//        if (ContextCompat.checkSelfPermission(
+//                context,
+//                Manifest.permission.CAMERA
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // Solicitar permissão
+//            ActivityCompat.requestPermissions(
+//                context as android.app.Activity,
+//                arrayOf(Manifest.permission.CAMERA),
+//                1001
+//            )
+//        }
+//    }
+//
+//    Box(
+//        modifier = Modifier.fillMaxSize(),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        AndroidView(
+//            factory = { ctx ->
+//                PreviewView(ctx).apply {
+//                    // Configurar o Preview quando a permissão é concedida
+//                    cameraProviderFuture.addListener({
+//                        try {
+//                            val cameraProvider = cameraProviderFuture.get()
+//
+//                            // Configurar o Preview
+//                            val preview = Preview.Builder().build()
+//                            preview.setSurfaceProvider(surfaceProvider)
+//
+//                            // Selecionar a câmera traseira
+//                            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+//
+//                            // Vincular o ciclo de vida do Preview ao lifecycleOwner
+//                            cameraProvider.unbindAll()
+//                            cameraProvider.bindToLifecycle(
+//                                lifecycleOwner,
+//                                cameraSelector,
+//                                preview
+//                            )
+//
+//                        } catch (e: Exception) {
+//                            Log.e("CameraPreview", "Erro ao iniciar a câmera: ${e.message}")
+//                            Toast.makeText(ctx, "Erro ao iniciar a câmera", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }, ContextCompat.getMainExecutor(ctx))
+//                }
+//            },
+//            modifier = Modifier
+//                .size(200.dp) // Define o tamanho do círculo
+//                .clip(CircleShape) // Aplica o recorte em forma de círculo
+//        )
+//    }
 }

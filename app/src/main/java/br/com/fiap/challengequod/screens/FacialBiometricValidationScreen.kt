@@ -81,18 +81,18 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
         currentStep = if (isSuccess) "Autenticação Bem-Sucedida!" else "Autenticação Falhou!\nTente Novamente"
         delay(2000) // Mostra o resultado por 2 segundos
         //voltar para a tela anterior
-        navController.popBackStack() // Retorna para a tela anterior
+        navController.popBackStack()
     }
 
     Dialog(onDismissRequest = {}) {
-        // Container do Dialog
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp),
             contentAlignment = Alignment.Center
         ) {
-            // O Card que forma o conteúdo do AlertDialog com bordas coloridas
+            // O Card que forma o conteúdo do AlertDialog
             Column(
                 modifier = Modifier
                     .background(Color(0xFFE0E0E0), shape = RoundedCornerShape(16.dp))
@@ -120,7 +120,7 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(if (isSuccess) R.drawable.mulher else R.drawable.homem),
+                            painter = painterResource(if (isSuccess) R.drawable.homem else R.drawable.mulher),
                             contentDescription = "Foto Capturada",
                             modifier = Modifier
                                 .fillMaxSize()
@@ -155,7 +155,7 @@ fun FacialBiometricValidationScreen(navController: NavController, isSuccess: Boo
                             modifier = Modifier.size(150.dp)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        // Mensagem descritiva
+                        // Mensagem
                         Text(
                             text = if (isSuccess) "Validação concluída com sucesso" else "Erro na validação biométrica",
                             style = MaterialTheme.typography.bodyLarge,

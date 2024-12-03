@@ -17,9 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -38,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -87,7 +83,7 @@ fun SimSwapScreen(navController: NavController) {
 
             // Imagem e cabeçalho
             Image(
-                painter = painterResource(id = R.drawable.chip_sim_swap), // Referência para a sua imagem
+                painter = painterResource(id = R.drawable.chip_sim_swap),
                 contentDescription = "Chip de celuar alterado",
                 modifier = Modifier
                     .size(150.dp)
@@ -181,6 +177,7 @@ fun SimSwapScreen(navController: NavController) {
 
 
             Spacer(modifier = Modifier.height(16.dp))
+
             // Botão de Verificação
             OutlinedButton(
                 onClick = {
@@ -197,7 +194,7 @@ fun SimSwapScreen(navController: NavController) {
                 shape = RoundedCornerShape(90.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
                     contentColor = Color.White, // Cor do texto
-                    containerColor = BlackQuod // Cor de fundo para o botão de validar
+                    containerColor = BlackQuod
                 )
             ) {
                 Text(text = "Verificar SIM Swap", fontSize = 14.sp)
@@ -229,28 +226,6 @@ fun SimSwapScreen(navController: NavController) {
                     imageResId = if (result) R.drawable.celular_seguro else R.drawable.simswap_alert
                 )
 
-
-
-//            CustomAlertDialog(
-//                showDialog = showDialog,
-//                onDismiss = {
-//                    showDialog = false
-//                    val userInfo = getResetData()
-//                    cpfValue = userInfo.cpf
-//                    phoneNumberValue = userInfo.phone
-//                    result = false
-//                },
-//                onConfirm = {
-//                    showDialog = false
-//                    val userInfo = getResetData()
-//                    cpfValue = userInfo.cpf
-//                    phoneNumberValue = userInfo.phone
-//                    result = false
-//                },
-//                message = validationMessage,
-//                isSuccess = result,
-//                imageResId = if (result) R.drawable.celular_seguro else R.drawable.chip_sim_swap
-//            )
         }
 
         /// Botão Voltar

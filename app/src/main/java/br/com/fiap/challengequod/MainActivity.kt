@@ -15,6 +15,8 @@ import androidx.navigation.navArgument
 import br.com.fiap.challengequod.screens.CheckScoreScreen
 import br.com.fiap.challengequod.screens.DigitalBiometricScreen
 import br.com.fiap.challengequod.screens.DigitalBiometricValidationScreen
+import br.com.fiap.challengequod.screens.DocumentScreen
+import br.com.fiap.challengequod.screens.DocumentValidationScreen
 import br.com.fiap.challengequod.screens.FacialBiometricScreen
 import br.com.fiap.challengequod.screens.HomeScreen
 import br.com.fiap.challengequod.screens.IdentityVerificationScreen
@@ -67,8 +69,37 @@ class MainActivity : ComponentActivity() {
                         }
 
                         //documentoscopia
+                        composable(route = "documentos"){ DocumentScreen(navController) }
+                        composable(
+                            route = "documentosValidacao/{isSuccess}",
+                            arguments = listOf(navArgument("isSuccess"){type = NavType.BoolType})
+                        ){ backStackEntry ->
+                            val isSuccessDocument = backStackEntry.arguments?.getBoolean("isSuccess") ?: false
+
+                            DocumentValidationScreen(
+                                navController = navController,
+                                isSuccess = isSuccessDocument
+                            )
+                        }
+                        composable(
+                            route = "documentosValidacao/{isSuccess}",
+                            arguments = listOf(navArgument("isSuccess"){type = NavType.BoolType})
+                        ){ backStackEntry ->
+                            val isSuccessDocument = backStackEntry.arguments?.getBoolean("isSuccess") ?: false
+
+                            DocumentValidationScreen(
+                                navController = navController,
+                                isSuccess = isSuccessDocument
+                            )
+                        }
+
+                        //SIMSwap
                         composable(route = "SIMSwap"){ SimSwapScreen(navController)}
+
+                        //Autenticação cadastral
                         composable(route = "autenticacaoCadastral"){ IdentityVerificationScreen(navController) }
+
+                        //Score
                         composable(route = "score"){ CheckScoreScreen(navController) }
 
                     }

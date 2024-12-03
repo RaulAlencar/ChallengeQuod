@@ -91,7 +91,6 @@ fun HomeScreen(navController: NavController) {
                     // Opções do menu
                     DropdownMenuItem(
                         onClick = {
-                            // Lógica para "Sair"
                             showMenu = false
                         },
                         text = { Text("Sair", color = BlackQuod) },
@@ -99,7 +98,6 @@ fun HomeScreen(navController: NavController) {
                     )
                     DropdownMenuItem(
                         onClick = {
-                            // Lógica para "Alterar Senha"
                             showMenu = false
                         },
                         text = { Text("Alterar Senha", color = BlackQuod) },
@@ -107,7 +105,6 @@ fun HomeScreen(navController: NavController) {
                     )
                     DropdownMenuItem(
                         onClick = {
-                            // Lógica para "Dados do Usuário"
                             showMenu = false
                         },
                         text = { Text("Dados do Usuário", color = BlackQuod) },
@@ -115,7 +112,6 @@ fun HomeScreen(navController: NavController) {
                     )
                     DropdownMenuItem(
                         onClick = {
-                            // Lógica para "Configurações"
                             showMenu = false
                         },
                         text = { Text("Configurações", color = BlackQuod) },
@@ -174,14 +170,14 @@ fun HomeScreen(navController: NavController) {
 
         }
 
-        // Corpo com cards estilizados
+        // cards estilizados
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp, start = 16.dp, end = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // Título da seção
+
             Text(
                 text = "Selecione o Serviço",
                 style = MaterialTheme.typography.titleLarge,
@@ -191,7 +187,7 @@ fun HomeScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Grade de cards (3x2)
+
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
                 modifier = Modifier.fillMaxWidth()
@@ -207,7 +203,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Biometria Digital",
                     imageResId = R.drawable.biometria_digital
                 ){
-                    // Ação para Biometria Facial
+                    // Ação para Biometria Digital
                     navController.navigate("biometriaDigital")
                 }
             }
@@ -222,15 +218,15 @@ fun HomeScreen(navController: NavController) {
                     title = "Análise de Documento",
                     imageResId = R.drawable.pesquisa_documento
                 ){
-                    // Ação para Biometria Facial
-                    navController.navigate("biometria_facial")
+                    // Ação para analise documentos
+                    navController.navigate("documentos")
                 }
 
                 CardItem(
                     title = "SIM SWAP",
                     imageResId = R.drawable.chip_sim_swap
                 ){
-                    // Ação para Biometria Facial
+                    // Ação para SIMSwap
                     navController.navigate("SIMSwap")
                 }
             }
@@ -243,7 +239,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Autenticação Cadastral",
                     imageResId = R.drawable.cadastro
                 ){
-                    // Ação para Biometria Facial
+                    // Ação para autenticação cadastral
                     navController.navigate("autenticacaoCadastral")
                 }
 
@@ -251,7 +247,7 @@ fun HomeScreen(navController: NavController) {
                     title = "Score Antifraude",
                     imageResId = R.drawable.score
                 ){
-                    // Ação para Biometria Facial
+                    // Ação para score
                     navController.navigate("score")
                 }
             }
@@ -277,7 +273,6 @@ fun CardItem(title: String, imageResId: Int, onClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize(),
-                //.padding(1.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -289,9 +284,9 @@ fun CardItem(title: String, imageResId: Int, onClick: () -> Unit) {
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(imageResId), // Passa a imagem ou ícone
-                    contentDescription = "Ícone de $title", // Descrição do ícone
-                    modifier = Modifier.size(50.dp) // Tamanho do ícone ou imagem
+                    painter = painterResource(imageResId),
+                    contentDescription = "Ícone de $title",
+                    modifier = Modifier.size(50.dp)
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))

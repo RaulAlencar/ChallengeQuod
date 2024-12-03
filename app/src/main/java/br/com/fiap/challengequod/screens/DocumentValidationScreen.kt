@@ -36,6 +36,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,15 +47,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Boolean){
-    var currentStep by remember { mutableStateOf("Capturando Digital...") }
+fun DocumentValidationScreen (navController: NavController, isSuccess: Boolean){
+    var currentStep by remember { mutableStateOf("Capturando Documento...") }
     var showScanner by remember { mutableStateOf(false) }
     var showResult by remember { mutableStateOf(false) }
     val fadeInAlpha = remember { Animatable(0f) }
 
-
-
-    // Animação do scanner
     val scannerOffset by rememberInfiniteTransition(label = "").animateFloat(
         initialValue = 0f,
         targetValue = 600f,
@@ -65,7 +63,6 @@ fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Bo
     )
 
     LaunchedEffect(Unit) {
-        // Controla o fade-in da imagem
         launch {
             fadeInAlpha.animateTo(
                 targetValue = 1f,
@@ -78,25 +75,23 @@ fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Bo
         delay(3000) // Scanner ocorre por 3 segundos
         showScanner = false
         showResult = true
-        currentStep = if (isSuccess) "Autenticação Bem-Sucedida!" else "Autenticação Falhou!\nTente Novamente"
+        currentStep = if (isSuccess) "Captura bem-sucedida!" else "Falha na captura \nTente novamente!"
         delay(2000) // Mostra o resultado por 2 segundos
         //voltar para a tela anterior
-        navController.popBackStack() // Retorna para a tela anterior
+        navController.popBackStack()
     }
 
     Dialog(onDismissRequest = {}) {
 
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             // O Card que forma o conteúdo do AlertDialog
             Column(
                 modifier = Modifier
                     .background(Color(0xFFE0E0E0), shape = RoundedCornerShape(16.dp))
-                    //.padding(10.dp)
                     .alpha(1f)
                     .fillMaxWidth()
                     .height(400.dp),
@@ -114,16 +109,17 @@ fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Bo
                     // Exibição da imagem e scanner
                     Box(
                         modifier = Modifier
-                            .size(200.dp, 240.dp)
-                            .clip(RoundedCornerShape(90.dp))
+                            .size(250.dp, 200.dp)
+                            .clip(RoundedCornerShape(16.dp))
                             .background(Color.Black),
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.digital_preta),
-                            contentDescription = "Digital Capturada",
+                            painter = painterResource(R.drawable.rg),
+                            contentDescription = "Documento Capturado",
                             modifier = Modifier
                                 .fillMaxSize()
+                                .padding(horizontal = 8.dp)
                                 .graphicsLayer { alpha = fadeInAlpha.value } // Aplicando o fade-in
                                 .then(
                                     if (showScanner) Modifier.drawWithContent {
@@ -134,14 +130,15 @@ fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Bo
                                             size = Size(size.width, 10f)
                                         )
                                     } else Modifier
-                                )
+                                ),
+                            contentScale = ContentScale.Fit
                         )
                     }
                 } else {
                     // Exibição do resultado
                     Column(
                         modifier = Modifier
-                            .size(220.dp)
+                            .size(250.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .background(if (isSuccess) Color(0xFFDFF7DF) else Color(0xFFFEEDEE))
                             .padding(16.dp),
@@ -157,15 +154,15 @@ fun DigitalBiometricValidationScreen(navController: NavController, isSuccess: Bo
                         Spacer(modifier = Modifier.height(16.dp))
                         // Mensagem
                         Text(
-                            text = if (isSuccess) "Validação concluída com sucesso" else "Erro na validação biométrica",
+                            text = if (isSuccess) "Captura concluída \ncom sucesso" else "Erro na captura \ndo documento",
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                             color = if (isSuccess) Color(0xFF388E3C) else Color(0xFFD32F2F)
                         )
                     }
-
                 }
             }
         }
     }
+
 }

@@ -37,7 +37,6 @@ import br.com.fiap.challengequod.ui.theme.BlueQuod
 import br.com.fiap.challengequod.ui.theme.PurpleQuod
 import br.com.fiap.challengequod.ui.theme.WhiteQuod
 
-//import androidx.navigation.NavController
 
 @Composable
 fun FacialBiometricScreen(navController: NavController) {

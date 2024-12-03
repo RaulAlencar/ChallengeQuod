@@ -2,11 +2,23 @@ package br.com.fiap.challengequod.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -43,14 +55,14 @@ fun CustomAlertDialog(
     // O diálogo é exibido apenas se isVisible for verdadeiro
     if (showDialog) {
         Dialog(onDismissRequest = onDismiss) {
-            // Container do Dialog
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
-                // O Card que forma o conteúdo do AlertDialog com bordas coloridas
+                // O Card que forma o conteúdo do AlertDialog
                 Column(
                     modifier = Modifier
                         .background(Color(0xFFE0E0E0), shape = RoundedCornerShape(16.dp))
@@ -61,7 +73,7 @@ fun CustomAlertDialog(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    // Título centralizado
+
                     Text(
                         text = "Resultado",
                         style = TextStyle(
@@ -72,14 +84,12 @@ fun CustomAlertDialog(
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
 
-                    // Ícone (imagem centralizada)
                     Image(
                         painter = painterResource(id = imageResId),
                         contentDescription = null,
                         modifier = Modifier.size(100.dp)
                     )
 
-                    // Mensagem
                     Text(
                         textAlign = TextAlign.Center,
                         text = message,
@@ -114,7 +124,7 @@ fun PreviewCustomAlertDialog() {
         onDismiss = { isDialogVisible = false },
         onConfirm = { isDialogVisible = false },
         message = "Sua operação foi bem-sucedida!",
-        isSuccess = false, // Altere para false para falha
-        imageResId = R.drawable.simswap_alert // Substitua pelo seu ícone de sucesso ou falha
+        isSuccess = false,
+        imageResId = R.drawable.simswap_alert
     )
 }

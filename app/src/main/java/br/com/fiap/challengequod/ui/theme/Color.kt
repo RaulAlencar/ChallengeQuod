@@ -14,7 +14,7 @@ val Pink40 = Color(0xFF7D5260)
 //Cores Paleta
 val BlackQuod = Color(0XFF000000)
 val WhiteQuod = Color(0XFFFFFFFF)
-val BlueQuod = Color(0xFF01B5D1)
+val BlueQuod = Color(0xFF01B5D0)
 val GreenQuod = Color(0xFF81C943)
 val PurpleQuod = Color(0xFF7851FC)
 val GradientColorsQuod = Brush.horizontalGradient(colors = listOf(PurpleQuod, BlueQuod)
