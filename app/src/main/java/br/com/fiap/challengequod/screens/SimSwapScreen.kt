@@ -90,7 +90,7 @@ fun SimSwapScreen(navController: NavController) {
                     .padding(top = 20.dp)
             )
             Text(
-                text = "Autenticação Cadastral",
+                text = "SIM SWAP",
                 style = MaterialTheme.typography.titleLarge,
                 color = BlackQuod
             )
